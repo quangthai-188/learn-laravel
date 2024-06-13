@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MyController;
+use Illuminate\Http\Request;    
 
 /*
 |--------------------------------------------------------------------------
@@ -16,18 +18,52 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('khoahoc', function () {
     return 'xin chao';
-}); 
+});
 Route::get('HoTen/{ten}', function ($ten) {
-    echo "Ten cua bạn la: " .$ten;
-}); 
+    echo "Ten cua bạn la: " . $ten;
+});
 Route::get('Thai/{ngay}', function ($ngay) {
-    echo " Thai " .$ngay;
-}); 
+    echo " Thai " . $ngay;
+});
 Route::get('Thai1/{ngay}', function ($ngay) {
-    echo " Thai " .$ngay;
-}) ->where(['ngay'=>'[a-zA-Z]+'])
-; 
-Route::get('Router1',['as'=>'MyRoute',function(){
-    echo "Xin chao cac ban";
-    }]);
-Route::get('GoiTen',)
+    echo " Thai " . $ngay;
+})->where(['ngay' => '[a-zA-Z]+'])
+;
+Route::get('Router1', [
+    'as' => 'MyRoute',
+    function () {
+        echo "Xin chao cac ban";
+    }
+]);
+
+Route::get('GoiTen', function () {
+    return redirect()->route('MyRoute');
+});
+
+Route::get('Router2', function () {
+    echo "Day la route2";
+})->name('MyRoute2');
+Route::get('GoiTen2', function () {
+    return redirect()->route('MyRoute2');
+});
+
+Route::group(['prefix'=>'MyGroup'],function(){
+    Route::get('User1',function(){
+        echo "User1";
+    });
+    Route::get('User2',function(){
+        echo "User2";
+    });
+    Route::get('User3',function(){
+        echo "User3";
+    });
+});
+
+Route::get('GoiController', [MyController::class, 'Xinchao']);
+
+Route::get('ThamSo/{ten}',[MyController::class, 'KhoaHoc']);
+
+
+
+Route::get('MyRequest', [MyController::class, 'GetURL']);
+
