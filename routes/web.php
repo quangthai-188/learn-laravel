@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MyController;
 use Illuminate\Http\Request;    
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -63,7 +64,31 @@ Route::get('GoiController', [MyController::class, 'Xinchao']);
 
 Route::get('ThamSo/{ten}',[MyController::class, 'KhoaHoc']);
 
-
-
 Route::get('MyRequest', [MyController::class, 'GetURL']);
 
+Route::get('getForm',function(){
+    return view('postForm');
+});
+
+// Route::post('postForm',['as'=>'postForm','uses'=> [MyController::class,'postForm']]);
+
+Route::post('postForm', [MyController::class, 'postForm'])->name('postForm');
+
+//Cookie
+
+Route::get('setCookie',[MyController::class, 'setCookie']);
+Route::get('getCookie',[MyController::class, 'getCookie']);
+
+//upload file
+
+Route::get('uploadFile',function(){
+    return view('postFile');
+});
+
+Route::post('postFile', [MyController::class, 'postFile'])->name('postFile');
+
+//Json
+ Route::get('getJson',[MyController::class, 'getJson']);
+
+ //View
+ Route::get('myView',[MyController::class, 'myView']);
