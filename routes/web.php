@@ -92,3 +92,12 @@ Route::post('postFile', [MyController::class, 'postFile'])->name('postFile');
 
  //View
  Route::get('myView',[MyController::class, 'myView']);
+
+ Route::get('Time/{t}',[MyController::class, 'Time']);
+ View::share('KhoaHoc','Laravel');
+
+ //blade temlpate
+
+ Route::get('blade',function(){
+    return view('pages.laravel');
+ });

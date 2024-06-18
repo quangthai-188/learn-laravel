@@ -74,4 +74,8 @@ class MyController extends Controller
     public function myView(){
         return view('QuangThai');
     }
+
+    public function Time($t){
+        return view('Myview',['t'=>$t]);
+    }
 }
