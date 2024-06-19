@@ -94,10 +94,12 @@ Route::post('postFile', [MyController::class, 'postFile'])->name('postFile');
  Route::get('myView',[MyController::class, 'myView']);
 
  Route::get('Time/{t}',[MyController::class, 'Time']);
- View::share('KhoaHoc','Laravel');
+ View::share('Khoahoc','Thai');
 
  //blade temlpate
 
  Route::get('blade',function(){
     return view('pages.laravel');
  });
+
+ Route::get('BladeTemplate/{str}',[MyController::class, 'blade']);
