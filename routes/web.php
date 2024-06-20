@@ -103,3 +103,20 @@ Route::post('postFile', [MyController::class, 'postFile'])->name('postFile');
  });
 
  Route::get('BladeTemplate/{str}',[MyController::class, 'blade']);
+
+ //database
+
+ Route::get('database',function(){
+    // Schema::create('loaisanpham',function($table){
+    // $table->increments('id');
+    // $table->string('ten',200);
+    // });
+
+    Schema::create('theloai',function($table){
+        $table->increments('id');
+        $table->string('ten',200)->nullable();
+        $table->string('nsx')->default('nha san xuat');
+        });
+    echo "da tao bang";
+});
+    

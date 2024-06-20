@@ -84,6 +84,7 @@ class MyController extends Controller
         if($str == "laravel")
             return view('pages.laravel',['khoahoc'=>$khoahoc]);
         elseif($str == "php")
-            return view('pages.php',['khoahoc'=>$khoahoc]);
+            // return view('pages.php',['khoahoc'=>$khoahoc]);
+            return view('pages.php',compact('khoahoc'));
     }
 }

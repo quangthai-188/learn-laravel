@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
 </head>
 <body>
-   @include('layouts/header')
+   @include('layouts.header')
 
     <div id="content">
         <h1>QuangThai</h1>
