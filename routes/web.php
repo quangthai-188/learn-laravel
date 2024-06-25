@@ -120,3 +120,85 @@ Route::post('postFile', [MyController::class, 'postFile'])->name('postFile');
     echo "da tao bang";
 });
     
+Route::get('qb/get',function(){
+    $data = DB::table('users')->get();
+    // var_dump($data);
+    foreach($data as $row)
+    {
+        foreach($row as $key=>$value)
+        {
+            echo $key.":".$value."<br>";
+        }
+        echo "<hr>";
+    }
+});
+
+//select * form users where id = 2
+
+Route::get('qb/where',function(){
+    $data = DB::table('users')->where('id','=',2)->get();
+    // var_dump($data);
+    foreach($data as $row)
+    {
+        foreach($row as $key=>$value)
+        {
+            echo $key.":".$value."<br>";
+        }
+        echo "<hr>";
+    }
+});
+
+//select id,name,enmail
+
+Route::get('qb/select',function(){
+    $data = DB::table('users')->select(['id','name','email'])->where('id',2)->get();
+
+    foreach($data as $row)
+    {
+        foreach($row as $key=>$value)
+        {
+            echo $key.":".$value."<br>";
+        }
+        echo "<hr>";
+    }
+});
+
+Route::get('qb/raw',function(){
+    $data = DB::table('users')->select(DB::raw('id,name as hoten,email'))->where('id',2)->get();
+
+    foreach($data as $row)
+    {
+        foreach($row as $key=>$value)
+        {
+            echo $key.":".$value."<br>";
+        }
+        echo "<hr>";
+    }
+});
+
+Route::get('qb/orderby',function(){
+    $data = DB::table('users')->select(DB::raw('id,name as hoten,email'))->where('id','>',1)->orderBy('id','desc')->skip(1)->take(5)->get();
+    // var_dump('users');
+    echo $data->count();
+    // foreach($data as $row)
+    // {
+    //     foreach($row as $key=>$value)
+    //     {
+    //         echo $key.":".$value."<br>";
+    //     }
+    //     echo "<hr>";
+    // }
+});
+
+Route::get('up/update',function(){
+    DB::table('users')->where('id',1)->update(['name'=>'Thai','email'=>'thai@gmail.com']);
+    echo "da update";
+});
+
+
+Route::get('up/delete',function(){
+    DB::table('users')->where('id',1)->truncate();
+    echo "da xoa";
+});
+
+
