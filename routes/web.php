@@ -2,8 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MyController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;    
-
+use App\Models;
+use PharIo\Manifest\AuthorCollection;
 
 /*
 |--------------------------------------------------------------------------
@@ -83,7 +85,7 @@ Route::get('getCookie',[MyController::class, 'getCookie']);
 
 Route::get('uploadFile',function(){
     return view('postFile');
-});
+})->name('postFile');
 
 Route::post('postFile', [MyController::class, 'postFile'])->name('postFile');
 
@@ -201,4 +203,76 @@ Route::get('up/delete',function(){
     echo "da xoa";
 });
 
+//model
 
+Route::get('model/save',function(){
+    $user =  new App\Models\User();
+    $user->name ="Mai";
+    $user->email = "Mai@gmail.com";
+    $user->password = "Pass";
+
+    $user->save();
+    echo "da thuc kien save()";
+});
+
+Route::get('model/query',function(){
+    $user = App\Models\User::find(1);
+    echo $user->name;
+});
+
+Route::get('model/sanpham/save/{ten}',function($ten){
+    $sanpham = new App\Models\Sanpham();
+    $sanpham->ten = $ten;
+    $sanpham->soluong= 100;
+    $sanpham->save();
+    echo " da luu " . $ten;
+});
+
+Route::get('model/sanpham/all',function(){
+    $sanpham = App\Models\Sanpham::all()->toArray();
+    var_dump($sanpham);
+});
+
+Route::get('model/sanpham/ten',function(){
+    $sanpham = App\Models\Sanpham::where('ten','PC')->get()->toArray();
+  echo  $sanpham[0]['ten'];
+    // var_dump($sanpham);
+});
+
+Route::get('model/sanpham/delete',function(){
+    App\Models\Sanpham::destroy(2);
+    echo 'Da xoa';
+});
+
+Route::get('taocot',function(){
+    Schema::table('sanpham',function($table){
+        $table->integer('id_loaisanpham')->unsigend();
+    });
+});
+
+Route::get('lienket',function(){
+    $data = App\Models\Sanpham::find(3)->loaisanpham->toArray();
+    var_dump($data);
+});
+
+
+
+Route::get('diem',function(){
+    echo "Bạn đã đủ  điểm";
+})->middleware('MyMiddle')->name('diem');
+
+Route::get('loi',function(){
+    echo "Bạn chưa đủ điểm";
+})->name('loi');
+
+Route::get('nhapdiem',function(){
+    return view('nhapdiem');
+})->name('nhapdiem');
+
+//auth
+
+Route::get('dangnhap',function(){
+    return view('dangnhap');
+})->name('dangnhap');
+
+Route::post('login',[AuthController::class, 'login'])->name('login');
