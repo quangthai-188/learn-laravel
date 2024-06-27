@@ -275,4 +275,39 @@ Route::get('dangnhap',function(){
     return view('dangnhap');
 })->name('dangnhap');
 
+Route::get('thu',function(){
+    return view('thanhcong');
+});
 Route::post('login',[AuthController::class, 'login'])->name('login');
+
+Route::get('logout',[AuthController::class, 'logout']);
+
+// Route::group(['middleware'=>['web']],function(){
+//     Route::get('Session',function(){
+//         Session::put('KhoaHoc','Laravel');
+//         echo "Da dat session";
+//     });
+// )};
+
+Route::group(['middleware'=>['web']],function(){
+    Route::get('Session',function(){
+        Session::put('KhoaHoc','Laravel');
+        Session::put('LapTrinh','Web');
+        echo "da dat session";
+        echo "<br>";
+        // Session::flush();
+
+        Session::flash('mess','Hello');
+        echo Session::get('mess');
+
+        // echo Session::get('KhoaHoc'); 
+        // if(Session::has('LapTrinh'))
+        //     echo "Đã có Session";
+        // else
+        //     echo "Session Lap trinh kh tồn tại";
+    });
+
+    Route::get('Session/flash',function(){
+         echo session('mess');
+    });
+});
