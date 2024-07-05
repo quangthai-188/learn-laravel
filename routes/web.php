@@ -6,7 +6,7 @@ use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;    
 use App\Models;
 use PharIo\Manifest\AuthorCollection;
-
+use App\Http\Controllers\TinController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -311,3 +311,5 @@ Route::group(['middleware'=>['web']],function(){
          echo session('mess');
     });
 });
+
+Route::get('product',[TinController::class, 'index']);
